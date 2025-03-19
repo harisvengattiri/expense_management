@@ -8,15 +8,15 @@ switch ($controller) {
     case 'authentication':
         handleAuth();
         break;
-    case 'vehicles':
-        handleVehicles();
+    case 'expense':
+        handleExpense();
         break;
 }
 
 // Authentication Section here
 function handleAuth() {
     $authHandler = new AuthHandler();
-    
+
     if (isset($_REQUEST['auth_login'])) {
         $authHandler->login($_REQUEST['username'], $_REQUEST['password']);
     }
@@ -25,35 +25,36 @@ function handleAuth() {
     }
 }
 
-// Vehicles Section here
-function handleVehicles() {
-    if (isset($_REQUEST['submit_add_vehicle'])) {
+// Expenses Section here
+function handleExpense() {
+    $expenseHandler = new Expense();
+    if (isset($_REQUEST['add_expense'])) {
         try {
-            addVehicle($_REQUEST);
-            header('Location: '.BASEURL.'/vehicles?status=success');
+            $expenseHandler->addExpense($_REQUEST);
+            header('Location: '.BASEURL.'/expense?status=success');
             exit();
         } catch (Exception $e) {
-            header('Location: '.BASEURL.'/vehicles?status=failed');
+            header('Location: '.BASEURL.'/expense?status=failed');
             exit();
         }
     }
-    if (isset($_REQUEST['submit_edit_vehicle'])) {
+    if (isset($_REQUEST['edit_expense'])) {
         try {
-            editVehicle($_REQUEST);
-            header('Location: '.BASEURL.'/vehicles?status=success');
+            $expenseHandler->editExpense($_REQUEST);
+            header('Location: '.BASEURL.'/expense?status=success');
             exit();
         } catch (Exception $e) {
-            header('Location: '.BASEURL.'/vehicles?status=failed');
+            header('Location: '.BASEURL.'/expense?status=failed');
             exit();
         }
     }
-    if (isset($_REQUEST['submit_delete_vehicle'])) {
+    if (isset($_REQUEST['delete_expense'])) {
         try {
-            deleteVehicle($_REQUEST);
-            header('Location: '.BASEURL.'/vehicles?status=success');
+            $expenseHandler->deleteExpense($_REQUEST);
+            header('Location: '.BASEURL.'/expense?status=success');
             exit();
         } catch (Exception $e) {
-            header('Location: '.BASEURL.'/vehicles?status=failed');
+            header('Location: '.BASEURL.'/expense?status=failed');
             exit();
         }
     }
