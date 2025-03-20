@@ -45,4 +45,31 @@ class Auth extends DatabaseConnection {
                 values ('$ip', '$now', '$ip_location', '$username', '$status')";
         $this->getConnection()->query($sql);
     }
+
+    function successLog($userDetails) {
+        $iplocation = '1.0.0.0';
+        $this->setUserSession($userDetails);
+        $this->trackLoginAttempt($userDetails['username'], $iplocation, 'success');
+    }
+
+    function failedLog($user) {
+        $iplocation = '1.0.0.0';
+        $this->trackLoginAttempt($user, $iplocation, 'failed');
+        session_destroy();
+    }
+
+    public function login($user, $password) {
+        try {
+            $this->checkUserExistence($user, $password);
+            $userDetails = $this->getUserInfo($user, $password);
+            $this->successLog($userDetails);
+        } catch (Exception $e) {
+            $this->failedLog($user);
+        }
+    }
+
+    public function logout() {
+        session_start(); 
+        session_destroy();
+    }
 }

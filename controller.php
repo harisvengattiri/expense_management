@@ -15,13 +15,26 @@ switch ($controller) {
 
 // Authentication Section here
 function handleAuth() {
-    $authHandler = new AuthHandler();
-
+    $authHandler = new Auth();
     if (isset($_REQUEST['auth_login'])) {
-        $authHandler->login($_REQUEST['username'], $_REQUEST['password']);
+        try {
+            $authHandler->login($_REQUEST['username'], $_REQUEST['password']);
+            header('Location:'.BASEURL.'/?folded=false');
+            exit();
+        } catch (Exception $e) {
+            header('Location:'.BASEURL.'/login/?status=failed');
+            exit();
+        }
     }
     if (isset($_REQUEST['auth_logout'])) {
-        $authHandler->logout();
+        try {
+            $authHandler->logout();
+            header('Location:'.BASEURL.'/login?status=logout');
+            exit();
+        } catch (Exception $e) {
+            header('Location:'.BASEURL.'/login?status=failed');
+            exit();
+        }
     }
 }
 
