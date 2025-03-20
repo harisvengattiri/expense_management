@@ -65,7 +65,7 @@
           <div class="logmod__tab lgm-2">
             <div class="logmod__heading">
               <?php
-              if ($_GET) {
+              if (isset($_GET['status'])) {
                 $status = $_GET['status'];
               } else {
                 $status = NULL;

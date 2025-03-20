@@ -19,7 +19,7 @@ function handleAuth() {
     if (isset($_REQUEST['auth_login'])) {
         try {
             $authHandler->login($_REQUEST['username'], $_REQUEST['password']);
-            header('Location:'.BASEURL.'/?folded=false');
+            header('Location:'.BASEURL.'?folded=false');
             exit();
         } catch (Exception $e) {
             header('Location:'.BASEURL.'/login/?status=failed');
