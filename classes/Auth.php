@@ -59,7 +59,7 @@ class Auth extends DatabaseConnection {
           $ip_location = 'Accessing locally with out IP';
           return $ip_location;
         }
-      }
+    }
 
     function successLog($userDetails) {
         $iplocation = $this->getIPDetails();
