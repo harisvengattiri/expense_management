@@ -110,7 +110,8 @@
                                     <td><?php echo $row["date"];?></td>
                                     <td><?php echo $row["amount"];?></td>
                                     <td>
-                                        <a href="<?php echo BASEURL; ?>/controller?controller=deliveryNotes&submit_delete_deliveryNote=delete&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
+                                        <a href="<?php echo BASEURL; ?>/edit/expense?id=<?php echo $id;?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
+                                        <a href="<?php echo BASEURL; ?>/controller?controller=expense&delete_expense&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                     </td>
                                 </tr>
                         <?php } } ?>

@@ -19,7 +19,7 @@ class Expense extends DatabaseConnection {
     
     function getExpenseDetails($id) {
         $sql = "SELECT * FROM `expense` WHERE `id` = $id";
-        checkAccountExist('expenses','id',$id);
+        checkAccountExist('expense','id',$id);
         $result = $this->conn->query($sql);
         $row = mysqli_fetch_assoc($result);
         if(!$row) {
@@ -36,7 +36,7 @@ class Expense extends DatabaseConnection {
     }
     
     function editExpense($data) {
-        $expense = $data['id'];
+        $expense = $data['expense'];
     
         $sql = "UPDATE `expense` SET `particular`='{$data["particular"]}',`date`='{$data["date"]}',`amount`='{$data["amount"]}' WHERE `id` = $expense";
         checkAccountExist('expense','id',$expense);
