@@ -1,5 +1,10 @@
 <?php require_once "includes/menu.php"; ?>
 <?php require_once "database.php"; ?>
+<?php require_once "classes/DatabaseConnection.php";?>
+<?php require_once "classes/Expense.php";?>
+<?php
+    $expene_object = new Expense();
+?>
 <div class="app-body">
     <!-- ############ PAGE START-->
     <div class="padding">
@@ -95,26 +100,24 @@
                     <tbody>
                         <?php
                         if (isset($_POST['fdate'])) {
-                            $sql = "SELECT * FROM expense $period_sql ORDER BY id ASC";
+                            $expenses = $expene_object->getExpensesWithInPeriod($period_sql);
                         } else {
-                            $sql = "SELECT * FROM expense ORDER BY id DESC LIMIT 0,100";
+                            $expenses = $expene_object->getExpensesWithLimit(100);
                         }
-                        $result = mysqli_query($conn, $sql);
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                $id = $row["id"];
+                        foreach($expenses as $expense) {
+                            $id = $expense["id"];
                         ?>
                                 <tr>
                                     <td>EXP|<?php echo sprintf("%06d", $id); ?></td>
-                                    <td><?php echo $row["particular"];?></td>
-                                    <td><?php echo $row["date"];?></td>
-                                    <td><?php echo $row["amount"];?></td>
+                                    <td><?php echo $expense["particular"];?></td>
+                                    <td><?php echo $expense["date"];?></td>
+                                    <td><?php echo $expense["amount"];?></td>
                                     <td>
                                         <a href="<?php echo BASEURL; ?>/edit/expense?id=<?php echo $id;?>"><button class="btn btn-xs btn-icon info"><i class="fa fa-pencil"></i></button></a>
                                         <a href="<?php echo BASEURL; ?>/controller?controller=expense&delete_expense&id=<?php echo $id;?>" onclick="return confirm('Are you sure?')"><button class="btn btn-xs btn-icon danger"><i class="fa fa-trash"></i></button></a>
                                     </td>
                                 </tr>
-                        <?php } } ?>
+                        <?php } ?>
                     </tbody>
                     <tfoot class="hide-if-no-paging">
                         <tr>
