@@ -92,17 +92,19 @@ tr:nth-child(even){background-color: #f2f2f2}
                <td><?php echo $expense['particular'];?></td>
                <td><?php echo $categoryName;?></td>
                <td><?php echo $expense['date'];?></td>
-               <td><?php echo $expense['amount'];?></td>
+               <td style="text-align:right;"><?php echo custom_money_format("%!i",$expense['amount']);?></td>
           </tr>
 		<?php 
             $sl=$sl+1;
             $tot_amount = $tot_amount+$expense['amount'];
             }
         ?>
-        <tr>
-            <td colspan="5"></td>
-            <td colspan="1"><b><?php echo $tot_amount;?></b></td>
-        </tr>
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td colspan="1" style="text-align:right;"><b><?php echo custom_money_format("%!i",$tot_amount);?></b></td>
+            </tr>
+        </tfoot>
         </tbody>
       </table>
 <?php
