@@ -101,8 +101,8 @@ tr:nth-child(even){background-color: #f2f2f2}
         ?>
         <tfoot>
             <tr>
-                <td colspan="5"></td>
-                <td colspan="1" style="text-align:right;"><b><?php echo custom_money_format("%!i",$tot_amount);?></b></td>
+                <td colspan="5" style="text-align:right;"><b>Total Amount</b></td>
+                <td colspan="1" style="text-align:right;"><b>AED <?php echo custom_money_format("%!i",$tot_amount);?></b></td>
             </tr>
         </tfoot>
         </tbody>
