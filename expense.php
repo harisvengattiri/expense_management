@@ -1,7 +1,5 @@
 <?php require_once "includes/menu.php"; ?>
 <?php require_once "database.php"; ?>
-<?php require_once "classes/DatabaseConnection.php";?>
-<?php require_once "classes/Expense.php";?>
 <?php
     $expene_object = new Expense();
 ?>
