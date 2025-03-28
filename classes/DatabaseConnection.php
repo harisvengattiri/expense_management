@@ -8,7 +8,7 @@ class DatabaseConnection {
     }
 
     private function connect() {
-        loadEnv4DB($_SERVER['DOCUMENT_ROOT'].'/medisep/.env');
+        loadEnv($_SERVER['DOCUMENT_ROOT'].'/medisep/.env');
         
         $servername = $_ENV['DB_HOST'];
         $username = $_ENV['DB_USERNAME'];

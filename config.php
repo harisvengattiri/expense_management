@@ -1,7 +1,7 @@
 <?php
 require_once ($_SERVER['DOCUMENT_ROOT'].'/medisep/includes/functions_incl.php');
 
-loadEnv4DB(__DIR__.'/.env');
+loadEnv(__DIR__.'/.env');
 
 $servername = $_ENV['DB_HOST'];
 $username = $_ENV['DB_USERNAME'];

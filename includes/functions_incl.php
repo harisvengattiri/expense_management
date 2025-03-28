@@ -1,6 +1,6 @@
 <?php
 
-function loadEnv4DB($filePath) {
+function loadEnv($filePath) {
   if (!file_exists( $filePath)) {
     throw new Exception('environment file is missing');
   }
