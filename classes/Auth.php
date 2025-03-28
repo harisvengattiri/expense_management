@@ -59,13 +59,9 @@ class Auth extends DatabaseConnection {
     }
 
     public function login($user, $password) {
-        try {
-            $this->checkUserExistence($user, $password);
-            $userDetails = $this->getUserInfo($user, $password);
-            $this->successLog($userDetails);
-        } catch (Exception $e) {
-            $this->failedLog($user);
-        }
+        $this->checkUserExistence($user, $password);
+        $userDetails = $this->getUserInfo($user, $password);
+        $this->successLog($userDetails);
     }
 
     public function logout() {

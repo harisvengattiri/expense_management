@@ -22,6 +22,7 @@ function handleAuth() {
             header('Location:'.BASEURL.'?folded=false');
             exit();
         } catch (Exception $e) {
+            $authHandler->failedLog($_REQUEST['username']);
             header('Location:'.BASEURL.'/login/?status=failed');
             exit();
         }
