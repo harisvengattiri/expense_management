@@ -7,8 +7,8 @@ class Expense extends DatabaseConnection {
         $this->conn = $db->getConnection();
     }
  
-    function getExpensesWithInPeriod($period) {
-        $sql = "SELECT * FROM `expense` $period ORDER BY id DESC";
+    function getFilteredExpenses($filterSql) {
+        $sql = "SELECT * FROM `expense` $filterSql ORDER BY id DESC";
         $result = $this->conn->query($sql);
         $expenses = [];
         while ($row = mysqli_fetch_array($result)) {

@@ -78,7 +78,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 		<?php
             $sl=1;
             $tot_amount=0;
-            $expenses = $expense_object->getExpensesWithInPeriod($filter_sql);
+            $expenses = $expense_object->getFilteredExpenses($filter_sql);
             foreach($expenses as $expense) {
              $id = $expense['id'];
 

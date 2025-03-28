@@ -69,6 +69,7 @@
                     $period_sql = $filters['period_sql'];
                     $mode = $filters['mode'];
                     $show_date = $filters['show_date'];
+                    $filterSql = $period_sql;
                 ?>
                 <h4 style="padding: 15px 0;color: green;float:left;"><span style="font-weight:600;">Mode:</span> <?php echo $mode . $show_date; ?></h4>
 
@@ -102,7 +103,7 @@
                     <tbody>
                         <?php
                         if (isset($_POST['fdate'])) {
-                            $expenses = $expene_object->getExpensesWithInPeriod($period_sql);
+                            $expenses = $expene_object->getFilteredExpenses($filterSql);
                         } else {
                             $expenses = $expene_object->getExpensesWithLimit(100);
                         }
