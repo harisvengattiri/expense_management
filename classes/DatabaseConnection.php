@@ -10,10 +10,10 @@ class DatabaseConnection {
     private function connect() {
         loadEnv4DB($_SERVER['DOCUMENT_ROOT'].'/medisep/.env');
         
-        $servername = getenv('DB_HOST');
-        $username = getenv('DB_USERNAME');
-        $password = getenv('DB_PASSWORD');
-        $dbname = getenv('DB_DATABASE');
+        $servername = $_ENV['DB_HOST'];
+        $username = $_ENV['DB_USERNAME'];
+        $password = $_ENV['DB_PASSWORD'];
+        $dbname = $_ENV['DB_DATABASE'];
         
         $this->conn = mysqli_connect($servername, $username, $password, $dbname);
         
