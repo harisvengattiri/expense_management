@@ -71,6 +71,14 @@ if (!isset($_SESSION['userid'])) {
                 </a>
               </li>
               <li>
+                <a href="<?php echo BASEURL;?>/category" class="b-primary">
+                  <span class="nav-icon text-white no-fade">
+                    <i class="ion-cube"></i>
+                  </span>
+                  <span class="nav-text">Category</span>
+                </a>
+              </li>
+              <li>
                 <a href="<?php echo BASEURL;?>/expense" class="b-success">
                   <span class="nav-icon text-white no-fade">
                     <i class="fa fa-database"></i>

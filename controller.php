@@ -8,6 +8,9 @@ switch ($controller) {
     case 'authentication':
         handleAuth();
         break;
+    case 'category':
+        handleCategory();
+        break;
     case 'expense':
         handleExpense();
         break;
@@ -34,6 +37,21 @@ function handleAuth() {
             exit();
         } catch (Exception $e) {
             header('Location:'.BASEURL.'/login?status=failed');
+            exit();
+        }
+    }
+}
+
+// Category Section here
+function handleCategory() {
+    $categoryHandler = new Category();
+    if (isset($_REQUEST['add_category'])) {
+        try {
+            $categoryHandler->addCategory($_REQUEST);
+            header('Location: '.BASEURL.'/category?status=success');
+            exit();
+        } catch (Exception $e) {
+            header('Location: '.BASEURL.'/category?status=failed');
             exit();
         }
     }
