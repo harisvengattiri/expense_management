@@ -8,6 +8,11 @@ if(isset($_GET['id'])) {
         $expense = $_GET['id'];
         $expense_object = new Expense();
         $expense_details = $expense_object->getExpenseDetails($expense);
+
+        $catId = $expense_details['category'];
+        $category_object = new Category();
+        $category_details = $category_object->getCategoryDetails($catId);
+        $categoryName = $category_details['name'];
     } catch (Exception $e) {
         error_log("Expense Fetch Error: " . $e->getMessage());
         exit;
@@ -32,6 +37,20 @@ if(isset($_GET['id'])) {
               <label for="Quantity" class="col-sm-3 form-control-label">Particular</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" name="particular" value="<?php echo $expense_details['particular'];?>" placeholder="Particular">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="Quantity" class="col-sm-3 form-control-label">Category</label>
+              <div class="col-sm-8">
+                <select name="category" class="form-control select2-multiple" data-ui-jp="select2" data-ui-options="{theme: 'bootstrap'}" required>
+                  <option value="<?php echo $catId;?>"><?php echo $categoryName;?></option>
+                  <?php
+                    $categories = $category_object->getCategriesWithLimit(100);
+                    foreach($categories as $category) {
+                  ?>
+                    <option value="<?php echo $category['id'];?>"><?php echo $category['name'];?></option>
+                  <?php } ?>
+                </select>
               </div>
             </div>
             <div class="form-group row">

@@ -2,6 +2,7 @@
 <?php require_once "database.php"; ?>
 <?php
     $expene_object = new Expense();
+    $category_object = new Category();
 ?>
 <div class="app-body">
     <!-- ############ PAGE START-->
@@ -85,6 +86,9 @@
                                 Expense
                             </th>
                             <th>
+                                Category
+                            </th>
+                            <th>
                                 Date
                             </th>
                             <th>
@@ -104,10 +108,15 @@
                         }
                         foreach($expenses as $expense) {
                             $id = $expense["id"];
+                            
+                            $catId = $expense['category'];
+                            $category_details = $category_object->getCategoryDetails($catId);
+                            $categoryName = $category_details['name'];
                         ?>
                                 <tr>
                                     <td>EXP|<?php echo sprintf("%06d", $id); ?></td>
                                     <td><?php echo $expense["particular"];?></td>
+                                    <td><?php echo $categoryName;?></td>
                                     <td><?php echo $expense["date"];?></td>
                                     <td><?php echo $expense["amount"];?></td>
                                     <td>

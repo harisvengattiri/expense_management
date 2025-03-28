@@ -1,4 +1,8 @@
-<?php include "../includes/menu.php";?>
+<?php require_once "../includes/menu.php";?>
+<?php require_once "../database.php"; ?>
+<?php
+    $category_object = new Category();
+?>
 <div class="app-body">
 <!-- ############ PAGE START-->
 <div class="padding">
@@ -17,6 +21,20 @@
               <label for="Quantity" class="col-sm-3 form-control-label">Particular</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" name="particular" placeholder="Particular">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="Quantity" class="col-sm-3 form-control-label">Category</label>
+              <div class="col-sm-8">
+                <select name="category" class="form-control select2-multiple" data-ui-jp="select2" data-ui-options="{theme: 'bootstrap'}" required>
+                  <option value="">Select Category</option>
+                  <?php
+                    $categories = $category_object->getCategriesWithLimit(100);
+                    foreach($categories as $category) {
+                  ?>
+                    <option value="<?php echo $category['id'];?>"><?php echo $category['name'];?></option>
+                  <?php } ?>
+                </select>
               </div>
             </div>
             <div class="form-group row">
