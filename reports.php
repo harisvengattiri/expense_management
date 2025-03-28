@@ -1,5 +1,9 @@
-<?php include "config.php"; ?>
-<?php include "includes/menu.php"; ?>
+<?php require_once "config.php"; ?>
+<?php require_once "includes/menu.php"; ?>
+<?php require_once "database.php"; ?>
+<?php
+    $category_object = new Category();
+?>
 
 <script>
     function target_popup(form) {
@@ -22,7 +26,7 @@
                         <form role="form" action="<?php echo BASEURL; ?>/report/expense" method="post" onsubmit="target_popup(this)">
                             <div class="form-group row">
                                 <label for="date" align="right" class="col-sm-1 form-control-label">From</label>
-                                <div class="col-sm-5">
+                                <div class="col-sm-3">
                                     <input type="text" name="fdate" id="fdate" placeholder="Start Date" class="form-control has-value" data-ui-jp="datetimepicker" data-ui-options="{
                                         format: 'DD/MM/YYYY',
                                         icons: {
@@ -40,7 +44,7 @@
                                 </div>
 
                                 <label for="date" align="right" class="col-sm-1 form-control-label">To</label>
-                                <div class="col-sm-5">
+                                <div class="col-sm-3">
                                     <input type="text" name="tdate" id="tdate" placeholder="End Date" Required="Required" class="form-control has-value" data-ui-jp="datetimepicker" data-ui-options="{
                                         format: 'DD/MM/YYYY',
                                         icons: {
@@ -56,6 +60,19 @@
                                         }
                                     }">
                                 </div>
+
+                                <div class="col-sm-3">
+                                    <select name="category" class="form-control select2-multiple" data-ui-jp="select2" data-ui-options="{theme: 'bootstrap'}">
+                                        <option value="">All Category</option>
+                                        <?php
+                                            $categories = $category_object->getCategriesWithLimit(100);
+                                            foreach($categories as $category) {
+                                        ?>
+                                            <option value="<?php echo $category['id'];?>"><?php echo $category['name'];?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+
                             </div>
 
                             <div class="form-group row m-t-md">

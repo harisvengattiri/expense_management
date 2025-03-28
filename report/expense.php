@@ -10,8 +10,11 @@ if(!isset($_SESSION['userid']))
 $filters = getSearchFilters();
 $period_sql = $filters['period_sql'];
 $show_date = $filters['show_date'];
+$cat_sql = $filters['cat_sql'];
+$filter_sql = $period_sql.$cat_sql;
 
 $expense_object = new Expense();
+$category_object = new Category();
 ?>
 
 <style>
@@ -62,6 +65,9 @@ tr:nth-child(even){background-color: #f2f2f2}
                   Particular
               </th>
               <th>
+                  Category
+              </th>
+              <th>
                   Date
               </th>
               <th>
@@ -72,19 +78,32 @@ tr:nth-child(even){background-color: #f2f2f2}
         <tbody style="font-size:11px;">
 		<?php
             $sl=1;
-            $tquantity=0;
-            $expenses = $expense_object->getExpensesWithInPeriod($period_sql);
+            $tot_amount=0;
+            $expenses = $expense_object->getExpensesWithInPeriod($filter_sql);
             foreach($expenses as $expense) {
-             $id = $expense['id']; 
+             $id = $expense['id'];
+
+             $catId = $expense['category'];
+             $category_details = $category_object->getCategoryDetails($catId);
+             $categoryName = $category_details['name'];
         ?>
           <tr>
                <td><?php echo $sl;?></td>
                <td>EXP|<?php echo sprintf("%06d", $id);?></td>
                <td><?php echo $expense['particular'];?></td>
+               <td><?php echo $categoryName;?></td>
                <td><?php echo $expense['date'];?></td>
                <td><?php echo $expense['amount'];?></td>
           </tr>
-		<?php $sl=$sl+1; } ?>
+		<?php 
+            $sl=$sl+1;
+            $tot_amount = $tot_amount+$expense['amount'];
+            }
+        ?>
+        <tr>
+            <td colspan="5"></td>
+            <td colspan="1"><b><?php echo $tot_amount;?></b></td>
+        </tr>
         </tbody>
       </table>
 <?php

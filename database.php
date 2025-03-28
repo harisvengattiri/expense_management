@@ -34,25 +34,25 @@ function checkAccountExist($table,$column,$id) {
 // SEARCH FILTER SECTION
 function getSearchFilters() {
     $period_sql = "";
-    $cust_sql = "";
+    $cat_sql = "";
     $mode = 'Recent View';
     $show_date = "";
 
     if ($_POST) {
         $fdate = $_POST['fdate'];
         $tdate = $_POST['tdate'];
-        $customer = $_POST['customer'] ?? '';
+        $catId = $_POST['category'] ?? '';
 
         $period_sql = "WHERE STR_TO_DATE(`date`, '%d/%m/%Y') BETWEEN STR_TO_DATE('$fdate', '%d/%m/%Y') AND STR_TO_DATE('$tdate', '%d/%m/%Y')";
-        if (!empty($customer)) {
-            $cust_sql = "AND `customer` = '$customer'";
+        if (!empty($catId)) {
+            $cat_sql = "AND `category` = '$catId'";
         }
         $mode = 'Search Mode';
         $show_date = "[$fdate - $tdate]";
     }
     return [
         'period_sql' => $period_sql,
-        'cust_sql' => $cust_sql,
+        'cat_sql' => $cat_sql,
         'mode' => $mode,
         'show_date' => $show_date
     ];
